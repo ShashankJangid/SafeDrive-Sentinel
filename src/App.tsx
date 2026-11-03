@@ -38,11 +38,11 @@ const DEFAULT_SETTINGS: AppSettings = {
   buttonSize: 'large', // default large for clear dashboard visibility
   safetyIntervalSeconds: 30, // 30s default for easy live evaluation
   promptTimeoutSeconds: 30,
-  voiceEnabled: true,
+  voiceEnabled: false,
   voiceSpeed: 1.0,
   sttEnabled: true,
   highContrast: false,
-  soundAlerts: true,
+  soundAlerts: false,
   autoRerouteOnEmergency: true,
   driverName: 'Captain Rajesh Sharma',
   vehicleId: 'DPS-BUS-42 (Delhi Public School)',

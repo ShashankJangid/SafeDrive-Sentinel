@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { OptimizedRoute, PoliceStation, DriverState } from '../types';
+import { OptimizedRoute, PoliceStation, DriverState, ButtonSize } from '../types';
+import { getDynamicButtonClasses } from '../utils/buttonStyles';
 import { CARTO_CONFIG } from '../config/mapConfig';
 
 interface MapViewProps {
   route: OptimizedRoute | null;
   driverState: DriverState;
   activePoliceTarget: PoliceStation | null;
+  buttonSize?: ButtonSize;
   onSelectPoliceStation: (station: PoliceStation) => void;
   onMapClickAddWaypoint?: (lat: number, lng: number) => void;
 }
@@ -15,6 +17,7 @@ export const MapView: React.FC<MapViewProps> = ({
   route,
   driverState,
   activePoliceTarget,
+  buttonSize = 'large',
   onSelectPoliceStation,
   onMapClickAddWaypoint
 }) => {
@@ -29,6 +32,7 @@ export const MapView: React.FC<MapViewProps> = ({
 
   const [currentStyleKey, setCurrentStyleKey] = useState<keyof typeof CARTO_CONFIG.styles>('voyager');
   const [autoFollow, setAutoFollow] = useState<boolean>(true);
+  const dynamicBtn = getDynamicButtonClasses(buttonSize);
 
   // Initialize Map
   useEffect(() => {
@@ -288,7 +292,7 @@ export const MapView: React.FC<MapViewProps> = ({
 
       markersLayer.addLayer(marker);
     });
-  }, [route, activePoliceTarget]);
+  }, [route, activePoliceTarget, buttonSize]);
 
   // Update Diversion Route to Police Station
   useEffect(() => {

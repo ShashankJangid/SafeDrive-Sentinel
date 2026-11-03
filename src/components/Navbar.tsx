@@ -180,17 +180,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </div>
 
-          {/* Voice Prompt (TTS) Toggle */}
+          {/* Master Voice & Sound Mute Toggle */}
           <button
-            onClick={() => onUpdateSettings({ voiceEnabled: !settings.voiceEnabled })}
-            title={settings.voiceEnabled ? "Voice Enabled" : "Voice Muted"}
-            className={`p-1.5 rounded-lg border text-xs transition ${
-              settings.voiceEnabled
-                ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
-                : 'bg-white text-slate-400 border-slate-200'
+            onClick={() => {
+              const nextState = !(settings.voiceEnabled || settings.soundAlerts);
+              onUpdateSettings({ voiceEnabled: nextState, soundAlerts: nextState });
+            }}
+            title={settings.voiceEnabled || settings.soundAlerts ? "Voice & Sound Active - Click to Mute" : "Muted (Silent Mode) - Click to Enable Voices"}
+            className={`flex items-center ${btnClasses.navBtn} border rounded-lg transition font-bold ${
+              settings.voiceEnabled || settings.soundAlerts
+                ? "bg-emerald-100 text-emerald-900 border-emerald-400 shadow-sm"
+                : "bg-slate-100 text-slate-500 border-slate-300 hover:bg-slate-200"
             }`}
           >
-            {settings.voiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            {settings.voiceEnabled || settings.soundAlerts ? (
+              <>
+                <Volume2 className={btnClasses.navIconSize} />
+                <span className="hidden md:inline">Voice: ON</span>
+              </>
+            ) : (
+              <>
+                <VolumeX className={btnClasses.navIconSize} />
+                <span className="hidden md:inline text-rose-600">Voice: Muted</span>
+              </>
+            )}
           </button>
 
           {/* Speech-to-Text (STT) Toggle */}

@@ -273,7 +273,7 @@ export const RouteManager: React.FC<RouteManagerProps> = ({
           disabled={isOptimizing}
           className={`flex items-center justify-center ${btnClasses.actionBtn} bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl transition disabled:opacity-50`}
         >
-          <Sparkles className={`w-4 h-4 ${isOptimizing ? 'animate-spin' : ''}`} />
+          <Sparkles className={`${btnClasses.iconSize} ${isOptimizing ? 'animate-spin' : ''}`} />
           <span>{isOptimizing ? 'Optimizing...' : t.optimizeRoute}</span>
         </button>
 
@@ -281,7 +281,7 @@ export const RouteManager: React.FC<RouteManagerProps> = ({
           onClick={() => setShowAddForm(!showAddForm)}
           className={`flex items-center justify-center ${btnClasses.actionBtn} bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl transition`}
         >
-          <Plus className="w-4 h-4 text-emerald-600" />
+          <Plus className={`${btnClasses.iconSize} text-emerald-600`} />
           <span>{t.addStop}</span>
         </button>
       </div>

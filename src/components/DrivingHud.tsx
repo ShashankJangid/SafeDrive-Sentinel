@@ -183,12 +183,12 @@ export const DrivingHud: React.FC<DrivingHudProps> = ({
           >
             {driverState.isDriving ? (
               <>
-                <Pause className="w-4 h-4 shrink-0" />
+                <Pause className={`${btnClasses.iconSize} shrink-0`} />
                 <span>{t.pauseNavigation}</span>
               </>
             ) : (
               <>
-                <Play className="w-4 h-4 shrink-0" />
+                <Play className={`${btnClasses.iconSize} shrink-0`} />
                 <span>{t.startNavigation}</span>
               </>
             )}
@@ -199,7 +199,7 @@ export const DrivingHud: React.FC<DrivingHudProps> = ({
             onClick={onTriggerInstantPrompt}
             className={`flex items-center justify-center ${btnClasses.actionBtn} bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 rounded-xl transition`}
           >
-            <Activity className="w-4 h-4 text-amber-600 shrink-0" />
+            <Activity className={`${btnClasses.iconSize} text-amber-600 shrink-0`} />
             <span>Simulate Check-In Now</span>
           </button>
         </div>
