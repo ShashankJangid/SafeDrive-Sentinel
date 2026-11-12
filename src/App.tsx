@@ -134,7 +134,7 @@ export const App: React.FC = () => {
     currentLat: PRESET_ROUTES[0].waypoints[0].lat,
     currentLng: PRESET_ROUTES[0].waypoints[0].lng,
     currentLocationTag: PRESET_ROUTES[0].waypoints[0].name,
-    currentCoordinateFormatted: '40.7580° N, 73.9855° W',
+    currentCoordinateFormatted: '28.5684° N, 77.1818° E',
     currentSpeedKmh: 48,
     heading: 0,
     routeProgressIndex: 0,

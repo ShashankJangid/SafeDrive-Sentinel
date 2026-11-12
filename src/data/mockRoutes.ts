@@ -12,6 +12,125 @@ export interface PresetRouteTemplate {
 
 export const PRESET_ROUTES: PresetRouteTemplate[] = [
   {
+    id: 'delhi-ncr-transit',
+    name: 'Delhi NCR Transit Corridor (Delhi - Gurugram - Noida)',
+    city: 'Delhi NCR, India',
+    description: 'Primary Delhi NCR student transit and arterial logistics corridor passing through Connaught Place, Dhaula Kuan, Cyber City, and DPS RK Puram with continuous 24/7 Police Safe Haven stations.',
+    waypoints: [
+      {
+        id: 'del-wp-1',
+        name: 'Delhi Public School (DPS) - R.K. Puram Depot',
+        lat: 28.5684,
+        lng: 77.1818,
+        type: 'depot',
+        address: 'Kaifi Azmi Marg, Sector 12, R.K. Puram, New Delhi, Delhi 110022',
+        priority: 'high'
+      },
+      {
+        id: 'del-wp-2',
+        name: 'Dhaula Kuan Transit Interchange',
+        lat: 28.5921,
+        lng: 77.1616,
+        type: 'delivery',
+        address: 'Ring Road Interchange, Dhaula Kuan, New Delhi, Delhi 110010',
+        priority: 'normal'
+      },
+      {
+        id: 'del-wp-3',
+        name: 'Connaught Place Central Hub',
+        lat: 28.6315,
+        lng: 77.2167,
+        type: 'delivery',
+        address: 'Inner Circle, Connaught Place, New Delhi, Delhi 110001',
+        priority: 'high'
+      },
+      {
+        id: 'del-wp-4',
+        name: 'India Gate & Kartavya Path',
+        lat: 28.6129,
+        lng: 77.2295,
+        type: 'delivery',
+        address: 'Rajpath, India Gate, New Delhi, Delhi 110001',
+        priority: 'normal'
+      },
+      {
+        id: 'del-wp-5',
+        name: 'AIIMS & Safdarjung Transit Node',
+        lat: 28.5672,
+        lng: 77.2100,
+        type: 'delivery',
+        address: 'Sri Aurobindo Marg, Ansari Nagar East, New Delhi, Delhi 110029',
+        priority: 'critical'
+      },
+      {
+        id: 'del-wp-6',
+        name: 'DLF Cyber Hub & Cyber City',
+        lat: 28.4950,
+        lng: 77.0895,
+        type: 'delivery',
+        address: 'DLF Cyber City, Sector 24, Gurugram, Haryana 122002',
+        priority: 'high'
+      }
+    ],
+    policeStations: [
+      {
+        id: 'del-ps-rkpuram',
+        name: 'R.K. Puram Police Station',
+        lat: 28.5630,
+        lng: 77.1765,
+        address: 'Sector 12, R.K. Puram, New Delhi, Delhi 110022',
+        phone: '112 / +91 11 2617 2176',
+        jurisdiction: 'Delhi Police South West District',
+        open24_7: true,
+        emergencyType: 'police'
+      },
+      {
+        id: 'del-ps-dhaulakuan',
+        name: 'Delhi Cantt / Dhaula Kuan Police Station',
+        lat: 28.5975,
+        lng: 77.1420,
+        address: 'Near Sadar Bazar, Delhi Cantt, New Delhi 110010',
+        phone: '112 / +91 11 2569 3161',
+        jurisdiction: 'Delhi Police South West District',
+        open24_7: true,
+        emergencyType: 'police'
+      },
+      {
+        id: 'del-ps-cp',
+        name: 'Connaught Place Police Station',
+        lat: 28.6290,
+        lng: 77.2140,
+        address: 'Parliament Street, Connaught Place, New Delhi 110001',
+        phone: '112 / +91 11 2374 5100',
+        jurisdiction: 'Delhi Police New Delhi District',
+        open24_7: true,
+        emergencyType: 'police'
+      },
+      {
+        id: 'del-ps-cybercity',
+        name: 'DLF Phase 2 Police Station (Cyber City)',
+        lat: 28.4890,
+        lng: 77.0870,
+        address: 'Near Sikanderpur Metro, DLF Phase 2, Gurugram, Haryana 122002',
+        phone: '112 / +91 124 235 6100',
+        jurisdiction: 'Gurugram Police East District',
+        open24_7: true,
+        emergencyType: 'police'
+      },
+      {
+        id: 'del-ps-hauzkhas',
+        name: 'Hauz Khas Police Station',
+        lat: 28.5490,
+        lng: 77.2060,
+        address: 'Near Aurobindo Place Market, Hauz Khas, New Delhi 110016',
+        phone: '112 / +91 11 2651 0065',
+        jurisdiction: 'Delhi Police South District',
+        open24_7: true,
+        emergencyType: 'police'
+      }
+    ]
+  },
+  {
     id: 'metro-logistics',
     name: 'Metropolitan Logistics & High-Value Cargo Corridor',
     city: 'New York / New Jersey Corridor',

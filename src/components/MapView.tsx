@@ -38,8 +38,8 @@ export const MapView: React.FC<MapViewProps> = ({
   useEffect(() => {
     if (!mapContainerRef.current || mapInstanceRef.current) return;
 
-    const initialLat = route?.waypoints[0]?.lat ?? 40.7580;
-    const initialLng = route?.waypoints[0]?.lng ?? -73.9855;
+    const initialLat = route?.waypoints[0]?.lat ?? 28.5684;
+    const initialLng = route?.waypoints[0]?.lng ?? 77.1818;
 
     const map = L.map(mapContainerRef.current, {
       center: [initialLat, initialLng],
