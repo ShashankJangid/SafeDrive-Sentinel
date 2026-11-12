@@ -44,6 +44,8 @@ const DEFAULT_SETTINGS: AppSettings = {
   sttEnabled: true,
   highContrast: false,
   soundAlerts: false,
+  batterySaver: false,
+  nightMode: false,
   autoRerouteOnEmergency: true,
   driverName: 'Captain Rajesh Sharma',
   vehicleId: 'DPS-BUS-42 (Delhi Public School)',
@@ -55,6 +57,25 @@ export const App: React.FC = () => {
     const saved = localStorage.getItem('routewise_settings') || localStorage.getItem('safedrive_settings');
     return saved ? JSON.parse(saved) : DEFAULT_SETTINGS;
   });
+
+
+  // Synchronize Night Driving Mode with HTML dark class
+  useEffect(() => {
+    if (settings.nightMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [settings.nightMode]);
+
+  // Synchronize Battery Saver with body class
+  useEffect(() => {
+    if (settings.batterySaver) {
+      document.body.classList.add('battery-saver-active');
+    } else {
+      document.body.classList.remove('battery-saver-active');
+    }
+  }, [settings.batterySaver]);
 
   const [activePresetId, setActivePresetId] = useState<string>(PRESET_ROUTES[0].id);
   const [currentRoute, setCurrentRoute] = useState<OptimizedRoute | null>(null);
@@ -368,10 +389,10 @@ export const App: React.FC = () => {
           nextWaypointEtaMin: progress.nextWaypointEtaMin
         };
       });
-    }, 400);
+    }, settings.batterySaver ? 1200 : 400);
 
     return () => clearInterval(moveInterval);
-  }, [driverState.isDriving, currentRoute]);
+  }, [driverState.isDriving, currentRoute, settings.batterySaver]);
 
   // 1. DRIVER RESPONDS: "YES, I AM SAFE"
   const handleConfirmSafe = (source: 'button' | 'voice') => {
@@ -480,7 +501,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white transition-colors duration-200">
       
       {/* Industrial Navigation Header */}
       <Navbar
@@ -559,7 +580,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* FOOTER */}
-      <footer className="border-t border-slate-200 bg-white px-4 py-3 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 text-center text-xs text-slate-500 dark:text-slate-400">
         RouteWise AI &bull; Active Driver Guardian Protocol &bull; Industrial Route Optimization &amp; Police Safe Haven Telematics
       </footer>
 
@@ -578,6 +599,8 @@ export const App: React.FC = () => {
         isOpen={isEmergencyModalOpen}
         station={activePoliceTarget || (currentRoute?.policeStationsAlongRoute[0] ?? null)}
         settings={settings}
+        driverLat={driverState.currentLat}
+        driverLng={driverState.currentLng}
         onConfirmRerouteToPolice={handleConfirmRerouteToPolice}
         onDismissEmergency={handleDismissEmergency}
       />

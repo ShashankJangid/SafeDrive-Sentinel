@@ -1,6 +1,20 @@
 export type ButtonSize = 'standard' | 'large' | 'glove';
 
-export type LanguageCode = 'en' | 'es' | 'hi' | 'fr' | 'de' | 'zh' | 'ar' | 'pt';
+export type LanguageCode =
+  | 'en'
+  | 'es'
+  | 'hi'
+  | 'fr'
+  | 'de'
+  | 'zh'
+  | 'ar'
+  | 'pt'
+  | 'ja'
+  | 'ru'
+  | 'it'
+  | 'ko'
+  | 'bn'
+  | 'ta';
 
 export type WaypointType = 'depot' | 'delivery' | 'pickup' | 'police' | 'hospital' | 'rest_stop';
 
@@ -102,6 +116,8 @@ export interface AppSettings {
   sttEnabled: boolean;
   highContrast: boolean;
   soundAlerts: boolean;
+  batterySaver: boolean;
+  nightMode: boolean;
   autoRerouteOnEmergency: boolean;
   driverName: string;
   vehicleId: string;

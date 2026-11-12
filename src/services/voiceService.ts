@@ -15,6 +15,14 @@ export interface STTCallback {
   onStatusChange: (status: STTStatus) => void;
 }
 
+export type EmergencyVoiceIntent = 'divert' | 'cancel' | 'call' | 'none';
+
+export interface EmergencySTTCallback {
+  onTranscript: (transcript: string) => void;
+  onMatchedEmergencyIntent: (intent: EmergencyVoiceIntent) => void;
+  onStatusChange: (status: STTStatus) => void;
+}
+
 class VoiceService {
   private synth: SpeechSynthesis | null = null;
   private recognition: any = null;
@@ -58,7 +66,13 @@ class VoiceService {
         de: 'de-DE',
         zh: 'zh-CN',
         ar: 'ar-SA',
-        pt: 'pt-BR'
+        pt: 'pt-BR',
+        ja: 'ja-JP',
+        ru: 'ru-RU',
+        it: 'it-IT',
+        ko: 'ko-KR',
+        bn: 'bn-IN',
+        ta: 'ta-IN'
       };
 
       utterance.lang = langMap[targetLang] || 'en-US';
@@ -113,7 +127,13 @@ class VoiceService {
         de: 'de-DE',
         zh: 'zh-CN',
         ar: 'ar-SA',
-        pt: 'pt-BR'
+        pt: 'pt-BR',
+        ja: 'ja-JP',
+        ru: 'ru-RU',
+        it: 'it-IT',
+        ko: 'ko-KR',
+        bn: 'bn-IN',
+        ta: 'ta-IN'
       };
 
       this.recognition.lang = langMap[targetLang] || 'en-US';
@@ -166,6 +186,99 @@ class VoiceService {
       return true;
     } catch (e) {
       console.warn("Failed to initialize speech recognition:", e);
+      callbacks.onStatusChange('error');
+      return false;
+    }
+  }
+
+  // Start Continuous Emergency Speech Recognition (STT) for hands-free emergency protocol
+  public startEmergencyListening(callbacks: EmergencySTTCallback, lang?: LanguageCode): boolean {
+    if (typeof window === 'undefined') return false;
+    const win = window as unknown as IWindow;
+    const SpeechRec = win.SpeechRecognition || win.webkitSpeechRecognition;
+
+    if (!SpeechRec) {
+      callbacks.onStatusChange('unsupported');
+      return false;
+    }
+
+    this.stopListening();
+
+    try {
+      this.recognition = new SpeechRec();
+      const targetLang = lang || this.currentLanguage;
+
+      const langMap: Record<LanguageCode, string> = {
+        en: 'en-US',
+        es: 'es-ES',
+        hi: 'hi-IN',
+        fr: 'fr-FR',
+        de: 'de-DE',
+        zh: 'zh-CN',
+        ar: 'ar-SA',
+        pt: 'pt-BR',
+        ja: 'ja-JP',
+        ru: 'ru-RU',
+        it: 'it-IT',
+        ko: 'ko-KR',
+        bn: 'bn-IN',
+        ta: 'ta-IN'
+      };
+
+      this.recognition.lang = langMap[targetLang] || 'en-US';
+      this.recognition.continuous = true;
+      this.recognition.interimResults = true;
+      this.recognition.maxAlternatives = 3;
+
+      this.recognition.onstart = () => {
+        this.isRecognitionActive = true;
+        callbacks.onStatusChange('listening');
+      };
+
+      this.recognition.onresult = (event: any) => {
+        let fullTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          fullTranscript += event.results[i][0].transcript.toLowerCase();
+        }
+
+        callbacks.onTranscript(fullTranscript);
+
+        // Emergency action keywords in English and local languages
+        const divertKeywords = ['divert', 'police', 'safe haven', 'reroute', 'help', 'emergency', 'station', 'thaana', 'madad', 'suraksha', 'hospital'];
+        const cancelKeywords = ['cancel', 'false', 'safe', 'mistake', 'im okay', "i'm okay", 'all good', 'theek', 'thik hu', 'dismiss'];
+        const callKeywords = ['call', 'dial', 'phone', 'ring', '911', '112', 'dispatch'];
+
+        const matchedDivert = divertKeywords.some(kw => fullTranscript.includes(kw));
+        const matchedCancel = cancelKeywords.some(kw => fullTranscript.includes(kw));
+        const matchedCall = callKeywords.some(kw => fullTranscript.includes(kw));
+
+        if (matchedDivert) {
+          callbacks.onStatusChange('heard');
+          callbacks.onMatchedEmergencyIntent('divert');
+        } else if (matchedCancel) {
+          callbacks.onStatusChange('heard');
+          callbacks.onMatchedEmergencyIntent('cancel');
+        } else if (matchedCall) {
+          callbacks.onStatusChange('heard');
+          callbacks.onMatchedEmergencyIntent('call');
+        }
+      };
+
+      this.recognition.onerror = (e: any) => {
+        console.warn("Emergency STT Error:", e.error);
+        if (e.error !== 'no-speech') {
+          callbacks.onStatusChange('error');
+        }
+      };
+
+      this.recognition.onend = () => {
+        this.isRecognitionActive = false;
+      };
+
+      this.recognition.start();
+      return true;
+    } catch (e) {
+      console.warn("Failed to initialize emergency speech recognition:", e);
       callbacks.onStatusChange('error');
       return false;
     }
