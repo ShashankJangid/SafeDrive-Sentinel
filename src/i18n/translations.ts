@@ -89,7 +89,7 @@ export interface TranslationStrings {
 
 export const translations: Record<LanguageCode, TranslationStrings> = {
   en: {
-    appTitle: "SafeDrive Sentinel",
+    appTitle: "RouteWise",
     appSubtitle: "Industrial Route Optimizer & Active Driver Safety Guardian",
     driverSafetyTag: "Active Driver Guardian",
     
@@ -168,7 +168,7 @@ export const translations: Record<LanguageCode, TranslationStrings> = {
   },
 
   es: {
-    appTitle: "SafeDrive Sentinel",
+    appTitle: "RouteWise",
     appSubtitle: "Optimizador de Rutas y Guardián de Seguridad para Conductores",
     driverSafetyTag: "Guardián de Seguridad",
     
@@ -247,7 +247,7 @@ export const translations: Record<LanguageCode, TranslationStrings> = {
   },
 
   hi: {
-    appTitle: "SafeDrive Sentinel",
+    appTitle: "RouteWise",
     appSubtitle: "स्मार्ट रूट ऑप्टिमाइज़र और चालक सुरक्षा प्रणाली",
     driverSafetyTag: "सक्रिय चालक रक्षक",
     
@@ -326,7 +326,7 @@ export const translations: Record<LanguageCode, TranslationStrings> = {
   },
 
   fr: {
-    appTitle: "SafeDrive Sentinel",
+    appTitle: "RouteWise",
     appSubtitle: "Optimiseur d'itinéraire et Gardien de Sécurité du Conducteur",
     driverSafetyTag: "Gardien Actif du Chauffeur",
     
@@ -405,7 +405,7 @@ export const translations: Record<LanguageCode, TranslationStrings> = {
   },
 
   de: {
-    appTitle: "SafeDrive Sentinel",
+    appTitle: "RouteWise",
     appSubtitle: "Routenoptimierung & Aktiver Fahrersicherheitsschutz",
     driverSafetyTag: "Fahrerschutz-System",
     
@@ -484,7 +484,7 @@ export const translations: Record<LanguageCode, TranslationStrings> = {
   },
 
   zh: {
-    appTitle: "SafeDrive Sentinel 智行卫士",
+    appTitle: "RouteWise 智行卫士",
     appSubtitle: "工业级路径智能优化与驾驶员主动安全守护平台",
     driverSafetyTag: "主动安全卫士",
     
@@ -563,7 +563,7 @@ export const translations: Record<LanguageCode, TranslationStrings> = {
   },
 
   ar: {
-    appTitle: "SafeDrive Sentinel",
+    appTitle: "RouteWise",
     appSubtitle: "نظام تحسين المسار وحماية سلامة السائق الصناعي",
     driverSafetyTag: "حارس سلامة السائق",
     
@@ -642,7 +642,7 @@ export const translations: Record<LanguageCode, TranslationStrings> = {
   },
 
   pt: {
-    appTitle: "SafeDrive Sentinel",
+    appTitle: "RouteWise",
     appSubtitle: "Otimizador de Rotas e Guardião de Segurança do Motorista",
     driverSafetyTag: "Guardião de Segurança Ativo",
     

@@ -144,7 +144,7 @@ export const DrivingHud: React.FC<DrivingHudProps> = ({
               {formatSeconds(driverState.secondsUntilNextPrompt)}
             </div>
             <div className="text-[10px] text-amber-800 font-medium truncate">
-              Interval: {settings.safetyIntervalSeconds}s
+              Interval: {settings.safetyIntervalSeconds >= 60 ? `${Math.round(settings.safetyIntervalSeconds / 60)}m` : `${settings.safetyIntervalSeconds}s`}
             </div>
           </div>
         </div>

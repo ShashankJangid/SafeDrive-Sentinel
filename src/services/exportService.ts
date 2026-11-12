@@ -7,7 +7,7 @@ export class RouteExportService {
     
     // Build GPX 1.1 XML
     let gpx = `<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="SafeDrive Sentinel AI - Driver Safety Route Optimizer"
+<gpx version="1.1" creator="RouteWise AI - Driver Safety Route Optimizer"
      xmlns="http://www.topografix.com/GPX/1/1"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
@@ -49,7 +49,7 @@ export class RouteExportService {
   </trk>
 </gpx>`;
 
-    this.triggerBrowserDownload(gpx, `${this.sanitizeFilename(route.name)}_SafeDrive.gpx`, 'application/gpx+xml');
+    this.triggerBrowserDownload(gpx, `${this.sanitizeFilename(route.name)}_RouteWise.gpx`, 'application/gpx+xml');
   }
 
   // Download RFC 7946 GeoJSON
@@ -129,7 +129,7 @@ export class RouteExportService {
   // Download complete Fleet Telematics JSON
   public static downloadJSON(route: OptimizedRoute, settings: AppSettings): void {
     const data = {
-      app: "SafeDrive Sentinel Enterprise",
+      app: "RouteWise Enterprise",
       version: "2.0.0",
       exportTime: new Date().toISOString(),
       route,
@@ -264,7 +264,7 @@ export class RouteExportService {
   </div>
 
   <div class="footer">
-    Generated automatically by SafeDrive Sentinel Enterprise V2 on ${new Date().toLocaleString()}. All routes monitored with active driver heartbeat welfare system.
+    Generated automatically by RouteWise Enterprise V2 on ${new Date().toLocaleString()}. All routes monitored with active driver heartbeat welfare system.
   </div>
 </body>
 </html>`;

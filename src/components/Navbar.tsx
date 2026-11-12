@@ -69,10 +69,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-extrabold tracking-tight text-slate-900 text-base sm:text-lg">
-                DPS <span className="text-emerald-600">SafeDrive</span>
+                Route<span className="text-emerald-600">Wise</span>
               </span>
               <span className="text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-full hidden sm:inline-block">
-                Delhi Public School Fleet Guardian
+                Intelligent Route & Fleet Safety
               </span>
             </div>
             <p className="text-[11px] text-slate-500 hidden sm:block truncate max-w-[280px]">
