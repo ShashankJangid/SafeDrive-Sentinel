@@ -101,30 +101,7 @@ export const App: React.FC = () => {
   const [checkInRecords, setCheckInRecords] = useState<SafetyCheckRecord[]>([]);
 
   
-  // Auto Route Download: Automatically downloads the route files (JSON / GPX) and caches offline tiles on app open
-  const autoDownloadedRouteRef = useRef<string | null>(null);
-  const [autoDownloadNotice, setAutoDownloadNotice] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!currentRoute || autoDownloadedRouteRef.current === currentRoute.id) return;
-    autoDownloadedRouteRef.current = currentRoute.id;
-
-    // Automatically trigger route export and offline caching seamlessly without manual user click
-    try {
-      RouteExportService.downloadJSON(currentRoute, settings);
-      setAutoDownloadNotice(`Auto-downloaded "${currentRoute.name}" route manifest & navigation data.`);
-      
-      // Auto cache offline map tiles in background for zero-data continuity
-      OfflineMapService.downloadRouteTiles(currentRoute.geometry, () => {
-        setIsOfflineAvailable(true);
-      });
-
-      const timer = setTimeout(() => setAutoDownloadNotice(null), 5000);
-      return () => clearTimeout(timer);
-    } catch (err) {
-      console.warn("Auto route download notice:", err);
-    }
-  }, [currentRoute, settings]);
 
   // Precomputed Route Kinematics (Distances, Times, Waypoints)
   const routeKinematicsRef = useRef<RouteKinematics | null>(null);
@@ -521,22 +498,7 @@ export const App: React.FC = () => {
       <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5 flex flex-col space-y-4">
         
         
-        {/* Automatic Route Download Notification Pill */}
-        {autoDownloadNotice && (
-          <div className="bg-emerald-50 border border-emerald-300 px-4 py-2 rounded-xl text-xs text-emerald-900 flex items-center justify-between shadow-sm animate-fade-in">
-            <div className="flex items-center space-x-2">
-              <span className="text-base">🚀</span>
-              <span className="font-semibold">{autoDownloadNotice}</span>
-              <span className="bg-emerald-200/70 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Automatic</span>
-            </div>
-            <button
-              onClick={() => setAutoDownloadNotice(null)}
-              className="text-emerald-700 hover:text-emerald-950 font-bold ml-2 text-xs"
-            >
-              ✕
-            </button>
-          </div>
-        )}
+        
 
         {/* Driving Telemetry HUD */}
         <DrivingHud
